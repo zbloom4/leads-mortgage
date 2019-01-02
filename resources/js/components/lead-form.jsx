@@ -12,7 +12,7 @@ export default class LeadForm extends React.Component {
 
         return (
             <div>
-
+                HI
             </div>
         )
     }
