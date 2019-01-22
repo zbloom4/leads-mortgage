@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LeadForm from './components/lead-form.jsx';
+import AppContainer from './components/app-container.jsx';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 
 const routing = (
     <Router>
         <div>
-            <Route exact path="/" component={LeadForm} />
+            <Route exact path="/" component={AppContainer} />
         </div>
     </Router>
 );
