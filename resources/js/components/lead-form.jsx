@@ -72,37 +72,39 @@ export default class LeadForm extends React.Component {
                             </span>
 
                             <LeadStep title={step.title} fields={step.fields} lead={self.state.lead}/>
-
-                            <div className="row">
-                                <div className="col-md-6">
-                                    {this.state.currentStep != 0 &&
+                            {this.state.currentStep != this.state.steps.length - 1 &&
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        {this.state.currentStep != 0 &&
                                         <div className="container-contact-form-btn">
                                             <div className="wrap-contact-form-btn">
                                                 <div className="contact-form-bgbtn"></div>
                                                 <div className="contact-form-btn" onClick={this.previousStep}>
-                                                        <span> Back
-                                                        <i className="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                                                        </span>
+                                                                <span> Back
+                                                                <i className="fa fa-long-arrow-right m-l-7"
+                                                                   aria-hidden="true"></i>
+                                                                </span>
                                                 </div>
                                             </div>
                                         </div>
-                                    }
-                                </div>
-                                <div className="col-md-6">
-                                    {this.state.currentStep != this.state.steps.length &&
-                                    <div className="container-contact-form-btn">
-                                        <div className="wrap-contact-form-btn">
-                                            <div className="contact-form-bgbtn"></div>
-                                            <div className="contact-form-btn" onClick={this.state.currentStep < this.state.steps.length - 1 ? this.nextStep : this.onSubmit}>
-                                                    <span> {this.state.currentStep < this.state.steps.length - 1 ? "Next" : "Done"}
-                                                    <i className="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                                                    </span>
+                                        }
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="container-contact-form-btn">
+                                            <div className="wrap-contact-form-btn">
+                                                <div className="contact-form-bgbtn"></div>
+                                                <div className="contact-form-btn"
+                                                     onClick={this.state.currentStep < this.state.steps.length - 2 ? this.nextStep : this.onSubmit}>
+                                                            <span> {this.state.currentStep < this.state.steps.length - 2 ? "Next" : "Done"}
+                                                                <i className="fa fa-long-arrow-right m-l-7"
+                                                                   aria-hidden="true"></i>
+                                                            </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    }
                                 </div>
-                            </div>
+                            }
                         </form>
                     </div>
                 </div>
@@ -124,13 +126,14 @@ export default class LeadForm extends React.Component {
     }
 
     onSubmit() {
-        firebase.firestore().collection(new Moment().toLocaleString()).add(Object.assign({}, this.state.lead)).
+        firebase.firestore().collection(new Moment().format("MM-DD-YYYY")).add(Object.assign({}, this.state.lead)).
             then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
             })
             .catch(function(error) {
                 console.error("Error adding document: ", error);
             });
+        this.nextStep();
     }
 
     nextStep() {

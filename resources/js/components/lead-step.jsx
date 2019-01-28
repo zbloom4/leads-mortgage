@@ -44,7 +44,7 @@ export default class LeadStep extends React.Component {
                         {this.props.title}
                     </span>
 
-                    {this.props.fields.map(function(field){
+                    {this.props.fields && this.props.fields.map(function(field){
                         if (field.mask_type){
                             var mask;
                             if (field.mask_type == "dollars"){
@@ -79,7 +79,7 @@ export default class LeadStep extends React.Component {
                                     :
                                     <input className="input" type="text" ref={field.key}
                                            id={field.key} value={self.getValue(field.key)}
-                                           placeholder="2010" onChange={self.onChange}/>
+                                           placeholder={field.placeholder} onChange={self.onChange}/>
                                 }
                                 <span className="focus-input"></span>
                             </div>
